@@ -1,0 +1,23 @@
+from pyspark.sql import SparkSession
+
+sc= SparkSession.builder.getOrCreate()
+
+spark = sc.sparkContext
+
+'''rddlst1 = spark.textFile("file:///home/hduser/Netflix_updated.csv")
+
+rddlst2 = rddlst1.map(lambda a : a.split(",")).map(lambda a : (a[5],int(a[2])))
+
+rddmake = rddlst2.reduceByKey(lambda x , y : x+y)
+
+print(rddmake.collect())'''
+#wordcount
+
+rddin = spark.textFile("file:///home/hduser/new_data.txt")
+
+rddflatten = rddin.flatMap(lambda a : a.split(" "))
+
+rddword = rddflatten.map(lambda a : (a,1))rddreduce =
+rddword.reduceByKey(lambda a,b : a+b).filter( lambda a : a[1] > 2)
+
+print(rddreduce.collect())

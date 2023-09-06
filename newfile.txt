@@ -8,7 +8,7 @@ rddlst1 = spark.textFile("file:///home/hduser/Netflix_updated.csv")
 
 rddlst2 = rddlst1.map(lambda a : a.split(",")).map(lambda a : (a[5],int(a[2])))
 
-rddmake = rddlst2.reduceByKey(lambda x , y : x-y)
+rddmake = rddlst2.reduceByKey(lambda x , y : x+y)
 
 print(rddmake.collect())
 #wordcount
